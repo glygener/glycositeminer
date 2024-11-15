@@ -40,14 +40,12 @@ When this download/unpack is done, you should see the following file counts
 
 
 ## Making and integratig entities 
-The following command will make various entity type files under /path/to/data/entities/
+The following commands will make various entity type files under /path/to/data/entities/ and
+integrate them under /path/to/data/integrated/. The second command should be executed after
+the first finishes.
 ```
-docker exec -t running_glycositeminer python make-entities.py &
-```
-
-The following command makes integrated entities and places them under /path/to/data/integrated/
-```
-docker exec -t running_glycositeminer python integrate-entities.py &
+docker exec -t running_glycositeminer python make-entities.py 
+docker exec -t running_glycositeminer python integrate-entities.py 
 ```
 
 
