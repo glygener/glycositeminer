@@ -14,18 +14,28 @@ docker run -itd -v /path/to/data:/data --name running_glycositeminer glycositemi
 ## Download data generated in this study
 Use the following commands to download and unpack data used by the pipeline
 ```
-wget https://data.glygen.org/ftp/glycositeminer/tarballs/medline_extracts.tar.gz -O /path/to/data/downloads/medline_extracts.tar.gz
-wget https://data.glygen.org/ftp/glycositeminer/tarballs/pubtator_extracts.tar.gz -O /path/to/data/downloads/pubtator_extracts.tar.gz
-wget https://data.glygen.org/ftp/glycositeminer/tarballs/glygen.tar.gz -O /path/to/data/downloads/glygen.tar.gz
-wget https://data.glygen.org/ftp/glycositeminer/tarballs/gene_info.tar.gz -O /path/to/data/downloads/gene_info.tar.gz
-wget https://data.glygen.org/ftp/glycositeminer/tarballs/misc.tar.gz -O /path/to/data/downloads/misc.tar.gz
+wget https://data.glygen.org/ftp/glycositeminer/tarballs/medline_extracts.tar.gz -O /path/to/data/downloads/medline_extracts.tar.gz --no-check-certificate
+wget https://data.glygen.org/ftp/glycositeminer/tarballs/pubtator_extracts.tar.gz -O /path/to/data/downloads/pubtator_extracts.tar.gz --no-check-certificate
+wget https://data.glygen.org/ftp/glycositeminer/tarballs/glygen.tar.gz -O /path/to/data/downloads/glygen.tar.gz --no-check-certificate
+wget https://data.glygen.org/ftp/glycositeminer/tarballs/gene_info.tar.gz -O /path/to/data/downloads/gene_info.tar.gz --no-check-certificate
+wget https://data.glygen.org/ftp/glycositeminer/tarballs/misc.tar.gz -O /path/to/data/downloads/misc.tar.gz --no-check-certificate
 
-tar xfz /path/to/data/downloads/medline_extracts.tar.gz -C /path/to/data/ &
-tar xfz /path/to/data/downloads/pubtator_extracts.tar.gz -C /path/to/data/ &
-tar xfz /path/to/data/downloads/glygen.tar.gz -C /path/to/data/ &
-tar xfz /path/to/data/downloads/gene_info.tar.gz -C /path/to/data/ &
-tar xfz /path/to/data/downloads/misc.tar.gz -C /path/to/data/ &
+nohup tar xfz /path/to/data/downloads/medline_extracts.tar.gz -C /path/to/data/ &
+nohup tar xfz /path/to/data/downloads/pubtator_extracts.tar.gz -C /path/to/data/ &
+nohup tar xfz /path/to/data/downloads/glygen.tar.gz -C /path/to/data/ &
+nohup tar xfz /path/to/data/downloads/gene_info.tar.gz -C /path/to/data/ &
+nohup tar xfz /path/to/data/downloads/misc.tar.gz -C /path/to/data/ &
 ```
+
+When this download/unpack is done, you should see the following file counts
+```
+18013 files under /path/to/data/medline_extracts/
+16954 files under /path/to/data/pubtator_extracts/ 
+   48 files under /path/to/data/glygen/ 
+   10 files under /path/to/data/misc/
+   7 files under /path/to/data/gene_info/ 
+```
+
 
 
 
