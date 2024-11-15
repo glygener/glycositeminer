@@ -11,7 +11,7 @@ To start a container from the image, run the following command (make sure you ch
 docker run -itd -v /path/to/data:/data --name running_glycositeminer glycositeminer
 ```
 
-## Download data generated in this study
+## Step-1: download data generated in this study
 Use the following commands to download and unpack data used by the pipeline
 ```
 wget https://data.glygen.org/ftp/glycositeminer/tarballs/medline_extracts.tar.gz -O /path/to/data/downloads/medline_extracts.tar.gz --no-check-certificate
@@ -37,9 +37,7 @@ When this download/unpack is done, you should see the following file counts
 ```
 
 
-
-
-## Making and integratig entities 
+## Step-2: making and integratig entities 
 The following commands will make various entity type files under /path/to/data/entities/ and
 integrate them under /path/to/data/integrated/. The second command should be executed after
 the first finishes.
@@ -48,6 +46,12 @@ docker exec -t running_glycositeminer python make-entities.py
 docker exec -t running_glycositeminer python integrate-entities.py 
 ```
 
+## Step-3: creating training set
+Out of the integrated entities under /path/to/data/integrated/, the command given below will make
+training dataset file (features file) under /path/to/data/features/
+```
+docker exec -t running_glycositeminer python make-features.py 
+```
 
 
 
