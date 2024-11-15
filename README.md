@@ -33,7 +33,7 @@ When this download/unpack is done, you should see the following file counts
 16954 files under /path/to/data/pubtator_extracts/ 
    48 files under /path/to/data/glygen/ 
    10 files under /path/to/data/misc/
-   7 files under /path/to/data/gene_info/ 
+    7 files under /path/to/data/gene_info/ 
 ```
 
 
