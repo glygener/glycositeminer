@@ -12,7 +12,7 @@ docker run -itd -v /path/to/data:/data --name running_glycositeminer glycositemi
 ```
 
 
-## Downloading raw data from other resources
+## Using the container to download raw or original data 
 You need to perform this step only if you want to perform data processing from the scratch. Otherwise, you can skip to the next step to download the data we have already processed. The original or raw data that need to be downloaded  you will needThe following datasets were downloa
 
 
