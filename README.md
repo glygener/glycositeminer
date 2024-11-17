@@ -92,7 +92,12 @@ This step makes unlabled samples corresponding to the 5424 "match sites" and sav
 docker exec -t running_glycositeminer python make-unlabeled-samples.py 
 ```
 
-
+## Step-8: making predictions
+We can now apply the models to the unlabeled samples "/path/to/data/samples/samples_unlabeled.csv" to make predictions. The output of the command below
+is saved in "/path/to/data/predicted/predicted.csv". As reported in the paper, this file contains a total of 3268 predicted sites.
+```
+docker exec -t running_glycositeminer python make-predictions.py 
+```
 
 
 
