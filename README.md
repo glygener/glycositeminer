@@ -48,8 +48,8 @@ docker exec -t running_glycositeminer python integrate-entities.py
 
 ## Step-3: creating labeled samples
 Out of the integrated entities under /path/to/data/integrated/, the command given below will make
-training dataset file /path/to/data/samples/samples_labeled.csv, and s reportd in the paper, this file 
-will contain 872 positive samples and 354 negative samples.
+training dataset file /path/to/data/samples/samples_labeled.csv, and as reportd in the paper, this file 
+will contain 872 positive and 354 negative samples.
 ```
 docker exec -t running_glycositeminer python make-labeled-samples.py 
 ```
