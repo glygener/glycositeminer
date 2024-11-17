@@ -68,7 +68,17 @@ docker exec -t running_glycositeminer python run-cross-validation.py
 ```
 
 
-## Step-5: building final models
+## Step-5: tuning the decision threshold for class prediction
+As described in the paper, these commands given below find optimal threshold on the class probabilities that is 
+suitable for our application. The output of the first command is saved in "/path/to/data/tuning/tuning.json", 
+and the second command generates a PNG file "/path/to/data/tuning/balanced_accuracy.png". You need to wait until 
+the first command is finished.
+```
+docker exec -t running_glycositeminer python tuning-step-one.py &
+docker exec -t running_glycositeminer python tuning-step-two.py
+```
+
+## Step-6: building final models
 Using all the samples in "/path/to/data/samples/samples_labeled.csv", this step creates final modesl for both
 SVM and MLP classifiers and saves the models under "/path/to/data/models/".
 ```
@@ -76,7 +86,7 @@ docker exec -t running_glycositeminer python build-models.py
 ```
 
 
-## Step-6: creating unlabeled samples
+## Step-7: creating unlabeled samples
 This step makes unlabled samples corresponding to the 5424 "match sites" and saves them under "/path/to/data/samples/samples_unlabeled.csv"
 ```
 docker exec -t running_glycositeminer python make-unlabeled-samples.py 
