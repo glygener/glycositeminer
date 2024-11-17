@@ -38,8 +38,8 @@ When this download/unpack is done, you should see the following file counts
 
 
 ## Step-2: making and integratig entities 
-The following commands will make various entity type files under /path/to/data/entities/ and
-integrate them under /path/to/data/integrated/. The second command should be executed after
+The following commands will make various entity type files under "/path/to/data/entities/" and
+integrate them under "/path/to/data/integrated/". The second command should be executed after
 the first finishes.
 ```
 docker exec -t running_glycositeminer python make-entities.py 
@@ -47,8 +47,8 @@ docker exec -t running_glycositeminer python integrate-entities.py
 ```
 
 ## Step-3: creating labeled samples
-Out of the integrated entities under /path/to/data/integrated/, the command given below will make
-training dataset file /path/to/data/samples/samples_labeled.csv, and as reportd in the paper, this file 
+Out of the integrated entities under "/path/to/data/integrated/", the command given below will make
+training dataset file "/path/to/data/samples/samples_labeled.csv", and as reportd in the paper, this file 
 will contain 872 positive and 354 negative samples.
 ```
 docker exec -t running_glycositeminer python make-labeled-samples.py 
@@ -56,10 +56,10 @@ docker exec -t running_glycositeminer python make-labeled-samples.py
 
 
 ## Step-4: model validation
-This step will run 10-fold cross validation using the samples /path/to/data/samples/samples_labeled.csv and the
-output files will be under /path/to/data/validation/. The CSV file performance.csv contains performance 
+This step will run 10-fold cross validation using the samples in "/path/to/data/samples/samples_labeled.csv", and the
+output files will be under "/path/to/data/validation/". The "performance.csv" file contains performance 
 output values for each run for both SVM and MLP classifiers, and the confusion matrix values are in the file
-confusion_matrix.json. The are also two PNG files (roc.png and cm.png) showing the ROC curves and confusion 
+"confusion_matrix.json". The are also two PNG files, "roc.png" and "cm.png", showing the ROC curves and confusion 
 matrix respectively.
 ```
 docker exec -t running_glycositeminer python run-cross-validation.py 
@@ -67,16 +67,16 @@ docker exec -t running_glycositeminer python run-cross-validation.py
 
 
 ## Step-5: building final models
-Using all the samples in /path/to/data/samples/samples_labeled.csv, this step creates final modesl for both
-SVM and MLP classifiers and saves the models under /path/to/data/models/.
+Using all the samples in "/path/to/data/samples/samples_labeled.csv", this step creates final modesl for both
+SVM and MLP classifiers and saves the models under "/path/to/data/models/".
 ```
 docker exec -t running_glycositeminer python build-models.py 
 ```
 
 
 ## Step-6: creating labeled samples
-Out of the integrated entities under /path/to/data/integrated/, the command given below will make
-training dataset file /path/to/data/samples/samples_unlabeled.csv, and s reportd in the paper, this file 
+Out of the integrated entities under "/path/to/data/integrated/", the command given below will make
+training dataset file "/path/to/data/samples/samples_unlabeled.csv", and as reportd in the paper, this file 
 will contain 872 positive samples and 354 negative samples.
 ```
 docker exec -t running_glycositeminer python make-labeled-samples.py 
