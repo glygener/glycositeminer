@@ -76,12 +76,10 @@ docker exec -t running_glycositeminer python build-models.py
 ```
 
 
-## Step-6: creating labeled samples
-Out of the integrated entities under "/path/to/data/integrated/", the command given below will make
-training dataset file "/path/to/data/samples/samples_unlabeled.csv", and as reportd in the paper, this file 
-will contain 872 positive samples and 354 negative samples.
+## Step-6: creating unlabeled samples
+This step makes unlabled samples corresponding to the 5424 "match sites" and saves them under "/path/to/data/samples/samples_unlabeled.csv"
 ```
-docker exec -t running_glycositeminer python make-labeled-samples.py 
+docker exec -t running_glycositeminer python make-unlabeled-samples.py 
 ```
 
 
