@@ -48,11 +48,23 @@ docker exec -t running_glycositeminer python integrate-entities.py
 
 ## Step-3: creating training set
 Out of the integrated entities under /path/to/data/integrated/, the command given below will make
-training dataset file (features file) under /path/to/data/features/
+training dataset file /path/to/data/features/features.csv, and s reportd in the paper, this file 
+will contain 872 positive samples and 354 negative samples.
 ```
 docker exec -t running_glycositeminer python make-features.py 
 ```
 
+
+
+## Step-4: model validation
+This step will run 10-fold cross validation using the samples /path/to/data/features/features.csv and the
+output files will be under /path/to/data/validation/. The CSV file performance.csv contains performance 
+output values for each run for both SVM and MLP classifiers, and the confusion matrix values are in the file
+confusion_matrix.json. The are also two PNG files (roc.png and cm.png) showing the ROC curves and confusion 
+matrix respectively.
+```
+docker exec -t running_glycositeminer python run-cross-validation.py 
+```
 
 
 
