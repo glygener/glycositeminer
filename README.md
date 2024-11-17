@@ -40,16 +40,18 @@ When this download/unpack is done, you should see the following file counts
 ## Step-2: making and integratig entities 
 The following commands will make various entity type files under "/path/to/data/entities/" and
 integrate them under "/path/to/data/integrated/". The second command should be executed after
-the first finishes.
+the first finishes. There are 9311 such interated entity files and one can parse the objects in 
+these files and find 5424 "match sites" as described in the paper.  
 ```
 docker exec -t running_glycositeminer python make-entities.py 
 docker exec -t running_glycositeminer python integrate-entities.py 
 ```
 
 ## Step-3: creating labeled samples
-Out of the integrated entities under "/path/to/data/integrated/", the command given below will generate 
-labeled samples and save them in "/path/to/data/samples/samples_labeled.csv". As reportd in the paper, this file 
-will contain 872 positive and 354 negative samples.
+Out of the 5424 "match sites" contained in the integrated entity files under "/path/to/data/integrated/", 
+the command given below will generate labeled samples and save them in "/path/to/data/samples/samples_labeled.csv". 
+As reportd in the paper, this file will contain 872 positive and 354 negative samples. The criteria for labeling 
+these samples is described in the paper.
 ```
 docker exec -t running_glycositeminer python make-labeled-samples.py 
 ```
