@@ -20,9 +20,6 @@ docker run -itd -v $DATA_PATH:/data --name running_glycositeminer glygen/glycosi
 
 
 ## Step-1: download data generated in this study
-
-First create "downloads" subfolder under "/path/to/data/" 
-
 Use the following commands to download and unpack data used by the pipeline
 ```
 mkdir -p $DATA_PATH/downloads
@@ -33,11 +30,11 @@ wget https://data.glygen.org/ftp/glycositeminer/tarballs/glygen.tar.gz -O $DATA_
 wget https://data.glygen.org/ftp/glycositeminer/tarballs/gene_info.tar.gz -O $DATA_PATH/downloads/gene_info.tar.gz --no-check-certificate
 wget https://data.glygen.org/ftp/glycositeminer/tarballs/misc.tar.gz -O $DATA_PATH/downloads/misc.tar.gz --no-check-certificate
 
-nohup tar xfz /path/to/data/downloads/medline_extracts.tar.gz -C $DATA_PATH &
-nohup tar xfz /path/to/data/downloads/pubtator_extracts.tar.gz -C $DATA_PATH &
-nohup tar xfz /path/to/data/downloads/glygen.tar.gz -C $DATA_PATH &
-nohup tar xfz /path/to/data/downloads/gene_info.tar.gz -C $DATA_PATH &
-nohup tar xfz /path/to/data/downloads/misc.tar.gz -C $DATA_PATH &
+nohup tar xfz $DATA_PATH/downloads/medline_extracts.tar.gz -C $DATA_PATH &
+nohup tar xfz $DATA_PATH/downloads/pubtator_extracts.tar.gz -C $DATA_PATH &
+nohup tar xfz $DATA_PATH/downloads/glygen.tar.gz -C $DATA_PATH &
+nohup tar xfz $DATA_PATH/downloads/gene_info.tar.gz -C $DATA_PATH &
+nohup tar xfz $DATA_PATH/downloads/misc.tar.gz -C $DATA_PATH &
 ```
 
 When this download/unpack is done, you should see the following file counts
