@@ -1,4 +1,4 @@
-## GlycoSiteMiner image and container
+# GlycoSiteMiner image and container
 
 GlycoSiteMiner is a literature mining-based pipeline for extracting glycosylation sites from PubMed abstracts. The code for the pipeline is made available as a docker image that can be pulled using the following command.
 
@@ -137,11 +137,13 @@ docker exec -t running_glycositeminer python make-predictions.py
 ```
 
 
+# DOWNLOADING ORIGINAL DATA
+To download and process original data, follow the instructions given below.
 
-
-## Using the container to download raw or original data 
+### PubMed downloads
 Run the following command to download PubMed baseline xml files for 2024 which have file indexes starting from 1 to 1219. To find out the 
-start and end values of the baseline files, visit https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/
+start and end values of the baseline files, visit https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/. The downloaded files will be 
+saved under "$DATA_PATH/medline/".
 ```
 nohup docker exec -t running_glycositeminer python download-medline.py -c baseline -y 24 -s 1 -e 1219 &
 ```
@@ -150,27 +152,14 @@ Similarly, the PubMed updatefiles for 2024 can be downloaded as
 nohup docker exec -t running_glycositeminer python download-medline.py -c updatefiles -y 24 -s 1220 -e 1600 &
 ```
 
-
-
-
-https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/
-
-You need to perform this step only if you want to perform data processing from the scratch. Otherwise, you can skip to the next step to download the data we have already processed. To download the original data, use the following commands.
-
+### PubTator downloads
+Run the following command and the downloaded files will be saved under "$DATA_PATH/pubtator/".
 ```
-docker exec -t running_glycositeminer python download.py -s medline &
-docker exec -t running_glycositeminer python download.py -s gene_info &
-docker exec -t running_glycositeminer python download.py -s pubtator &
-docker exec -t running_glycositeminer python download.py -s glygen &
+nohup docker exec -t running_glycositeminer python download-pubtator.py &
 ```
 
-Once the above four processes finish, there will be downloaded files under the following folders
-```
-$DATA_PATH/medline/
-$DATA_PATH/gene_info/
-$DATA_PATH/pubtator/
-$DATA_PATH/glygen/
-```
+
+
 
 Next, run the following command to parse the *.xml.gz downloaded files under $DATA_PATH/medline/
 and create medline extract files under $DATA_PATH/medline_extracts/. This is a parallelization wrapper script 
