@@ -19,7 +19,7 @@ docker run -itd -v $DATA_PATH:/data --name running_glycositeminer glygen/glycosi
 ```
 
 
-## Step-1: download data generated in this study
+### Step-1: download data generated in this study
 Use the following commands to download and unpack data used by the pipeline. The tarball files downloaded in this step are:
 
 - medline_extracts.tar.gz -- glycosylation terms containing sentences extracted from PubMed abstracts
@@ -57,7 +57,7 @@ When this download/unpack is done, you should see the following file counts
 ```
 
 
-## Step-2: making entities 
+### Step-2: making entities 
 The following commands will use downloaded files to make various entity type files under "$DATA_PATH/entities/".  
 ```
 nohup docker exec -t running_glycositeminer python make-entities.py &
@@ -73,14 +73,14 @@ After number of entities should be as follows
 ```
 
 
-## Step-3: integratig entities 
+### Step-3: integratig entities 
 The entities created should be integrated using the command given below. This step should create 9311 files under "$DATA_PATH/integrated/".
 ```
 nohup docker exec -t running_glycositeminer python integrate-entities.py &
 ```
 
 
-## Step-4: creating labeled samples
+### Step-4: creating labeled samples
 Out of the 5424 "match sites" contained in the integrated entity files under "$DATA_PATH/integrated/", 
 the command given below will generate labeled samples and save them in "$DATA_PATH/samples/samples_labeled.csv". 
 As reportd in the paper, this file will contain 872 positive and 354 negative samples. The criteria for labeling 
@@ -90,7 +90,7 @@ nohup docker exec -t running_glycositeminer python make-labeled-samples.py &
 ```
 
 
-## Step-5: model validation
+### Step-5: model validation
 This step will run 10-fold cross validation using the samples in "$DATA_PATH/samples/samples_labeled.csv", and the
 output files will be under "$DATA_PATH/validation/". The "performance.csv" file contains performance 
 output values for each run for both SVM and MLP classifiers, and the confusion matrix values are in the file
@@ -101,7 +101,7 @@ nohup docker exec -t running_glycositeminer python run-cross-validation.py &
 ```
 
 
-## Step-6: tuning the decision threshold for class prediction
+### Step-6: tuning the decision threshold for class prediction
 As described in the paper, these commands given below are used to find optimal threshold on the class probabilities that is 
 suitable for our application. The output of the first command is saved in "$DATA_PATH/tuning/tuning.json", 
 and the second command generates a PNG file "$DATA_PATH/tuning/balanced_accuracy.png". 
@@ -115,7 +115,7 @@ nohup docker exec -t running_glycositeminer python tuning-step-two.py &
 ```
 
 
-## Step-7: building final models
+### Step-7: building final models
 Using all the samples in "$DATA_PATH/samples/samples_labeled.csv", this step creates final modesl for both
 SVM and MLP classifiers and saves the models under "$DATA_PATH/models/".
 ```
@@ -123,13 +123,13 @@ docker exec -t running_glycositeminer python build-models.py
 ```
 
 
-## Step-8: creating unlabeled samples
+### Step-8: creating unlabeled samples
 This step makes unlabled samples corresponding to the 5424 "match sites" and saves them under "$DATA_PATH/samples/samples_unlabeled.csv"
 ```
 docker exec -t running_glycositeminer python make-unlabeled-samples.py 
 ```
 
-## Step-9: making predictions
+### Step-9: making predictions
 We can now apply the models to the unlabeled samples "$DATA_PATH/samples/samples_unlabeled.csv" to make predictions. The output of the command below
 is saved in "$DATA_PATH/predicted/predicted.csv". As reported in the paper, this file contains a total of 3268 predicted sites.
 ```
@@ -158,6 +158,17 @@ Run the following command and the downloaded files will be saved under "$DATA_PA
 nohup docker exec -t running_glycositeminer python download-pubtator.py &
 ```
 
+### Gene Info downloads
+Run the following command and the downloaded files will be saved under "$DATA_PATH/gene_info/".
+```
+nohup docker exec -t running_glycositeminer python download-gene-info.py &
+```
+
+### GlyGen downloads
+Run the following command and the downloaded files will be saved under "$DATA_PATH/glygen/".
+```
+nohup docker exec -t running_glycositeminer python download-glygen.py &
+```
 
 
 
