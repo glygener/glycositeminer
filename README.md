@@ -76,7 +76,7 @@ the command given below will generate labeled samples and save them in "$DATA_PA
 As reportd in the paper, this file will contain 872 positive and 354 negative samples. The criteria for labeling 
 these samples is described in the paper.
 ```
-docker exec -t running_glycositeminer python make-labeled-samples.py 
+nohup docker exec -t running_glycositeminer python make-labeled-samples.py &
 ```
 
 
@@ -87,19 +87,23 @@ output values for each run for both SVM and MLP classifiers, and the confusion m
 "confusion_matrix.json". The are also two PNG files, "roc.png" and "cm.png", showing the ROC curves and confusion 
 matrix respectively.
 ```
-docker exec -t running_glycositeminer python run-cross-validation.py 
+nohup docker exec -t running_glycositeminer python run-cross-validation.py &
 ```
 
 
 ## Step-6: tuning the decision threshold for class prediction
-As described in the paper, these commands given below find optimal threshold on the class probabilities that is 
+As described in the paper, these commands given below are used to find optimal threshold on the class probabilities that is 
 suitable for our application. The output of the first command is saved in "$DATA_PATH/tuning/tuning.json", 
-and the second command generates a PNG file "$DATA_PATH/tuning/balanced_accuracy.png". You need to wait until 
-the first command is finished.
+and the second command generates a PNG file "$DATA_PATH/tuning/balanced_accuracy.png". 
 ```
-docker exec -t running_glycositeminer python tuning-step-one.py &
-docker exec -t running_glycositeminer python tuning-step-two.py
+nohup docker exec -t running_glycositeminer python tuning-step-one.py &
 ```
+
+You need to wait until the process started by the above command is finished.
+```
+nohup docker exec -t running_glycositeminer python tuning-step-two.py &
+```
+
 
 ## Step-7: building final models
 Using all the samples in "$DATA_PATH/samples/samples_labeled.csv", this step creates final modesl for both
