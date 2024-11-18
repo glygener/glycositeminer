@@ -140,6 +140,21 @@ docker exec -t running_glycositeminer python make-predictions.py
 
 
 ## Using the container to download raw or original data 
+Run the following command to download PubMed baseline xml files for 2024 which have file indexes starting from 1 to 1219. To find out the 
+start and end values of the baseline files, visit https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/
+```
+nohup docker exec -t running_glycositeminer python download-medline.py -c baseline -y 24 -s 1 -e 1219 &
+```
+Similarly, the PubMed updatefiles for 2024 can be downloaded as
+```
+nohup docker exec -t running_glycositeminer python download-medline.py -c updatefiles -y 24 -s 1220 -e 1600 &
+```
+
+
+
+
+https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/
+
 You need to perform this step only if you want to perform data processing from the scratch. Otherwise, you can skip to the next step to download the data we have already processed. To download the original data, use the following commands.
 
 ```
