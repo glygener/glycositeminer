@@ -176,14 +176,14 @@ Next, run the following command to parse the *.xml.gz downloaded files under $DA
 and create medline extract files under $DATA_PATH/medline_extracts/. This is a parallelization wrapper script 
 for another script named "extract-medline-data.py" and will spawn 10 "extract-medline-data.py"
 ```
-docker exec -t running_glycositeminer python download.py -s wrap-extract-medline-data.py &
+nohup docker exec -t running_glycositeminer python download.py -s wrap-extract-medline-data.py &
 ```
 
 When the 10 "extract-medline-data.py" are done and many files have been created under $DATA_PATH/medline_extracts/,
 run the following command to parse downloaded file under $DATA_PATH/pubtator/
 and create pubtator extract files under $DATA_PATH/pubtator_extracts/
 ```
-docker exec -t running_glycositeminer python download.py -s wrap-extract-medline-data.py extract-pubtator-data.py &
+nohup docker exec -t running_glycositeminer python download.py -s wrap-extract-medline-data.py extract-pubtator-data.py &
 ```     
 
 
