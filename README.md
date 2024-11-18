@@ -41,7 +41,7 @@ When this download/unpack is done, you should see the following file counts
 ```
 18013 files under $DATA_PATH/medline_extracts/
 16954 files under $DATA_PATH/pubtator_extracts/ 
-   48 files under $DATA_PATH/glygen/ 
+   43 files under $DATA_PATH/glygen/ 
    10 files under $DATA_PATH/misc/
     7 files under $DATA_PATH/gene_info/ 
 ```
