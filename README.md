@@ -6,50 +6,61 @@ GlycoSiteMiner is a literature mining-based pipeline for extracting glycosylatio
 docker pull glygen/glycositeminer
 ```
 
-To start a container from the image, run the following command (make sure you change "/path/to/data" to the data path you want to use in your system)
+After pulling the image, create a data directory and set an env variable that will contain the path to your data directory. In the example shown below, 
+the directory "/data/glycositeminer/" is used a a data directory.
 ```
-docker run -itd -v /path/to/data:/data --name running_glycositeminer glygen/glycositeminer
+mkdir -p /data/glycositeminer/
+export DATA_PATH=/data/glycositeminer/
 ```
+
+To start a container from the image, run the following command
+```
+docker run -itd -v $DATA_PATH:/data --name running_glycositeminer glygen/glycositeminer
+```
+
 
 ## Step-1: download data generated in this study
+
+First create "downloads" subfolder under "/path/to/data/" 
+
 Use the following commands to download and unpack data used by the pipeline
 ```
-wget https://data.glygen.org/ftp/glycositeminer/tarballs/medline_extracts.tar.gz -O /path/to/data/downloads/medline_extracts.tar.gz --no-check-certificate
-wget https://data.glygen.org/ftp/glycositeminer/tarballs/pubtator_extracts.tar.gz -O /path/to/data/downloads/pubtator_extracts.tar.gz --no-check-certificate
-wget https://data.glygen.org/ftp/glycositeminer/tarballs/glygen.tar.gz -O /path/to/data/downloads/glygen.tar.gz --no-check-certificate
-wget https://data.glygen.org/ftp/glycositeminer/tarballs/gene_info.tar.gz -O /path/to/data/downloads/gene_info.tar.gz --no-check-certificate
-wget https://data.glygen.org/ftp/glycositeminer/tarballs/misc.tar.gz -O /path/to/data/downloads/misc.tar.gz --no-check-certificate
+mkdir -p $DATA_PATH/downloads
 
-nohup tar xfz /path/to/data/downloads/medline_extracts.tar.gz -C /path/to/data/ &
-nohup tar xfz /path/to/data/downloads/pubtator_extracts.tar.gz -C /path/to/data/ &
-nohup tar xfz /path/to/data/downloads/glygen.tar.gz -C /path/to/data/ &
-nohup tar xfz /path/to/data/downloads/gene_info.tar.gz -C /path/to/data/ &
-nohup tar xfz /path/to/data/downloads/misc.tar.gz -C /path/to/data/ &
+wget https://data.glygen.org/ftp/glycositeminer/tarballs/medline_extracts.tar.gz -O $DATA_PATH/downloads/medline_extracts.tar.gz --no-check-certificate
+wget https://data.glygen.org/ftp/glycositeminer/tarballs/pubtator_extracts.tar.gz -O $DATA_PATH/downloads/pubtator_extracts.tar.gz --no-check-certificate
+wget https://data.glygen.org/ftp/glycositeminer/tarballs/glygen.tar.gz -O $DATA_PATH/downloads/glygen.tar.gz --no-check-certificate
+wget https://data.glygen.org/ftp/glycositeminer/tarballs/gene_info.tar.gz -O $DATA_PATH/downloads/gene_info.tar.gz --no-check-certificate
+wget https://data.glygen.org/ftp/glycositeminer/tarballs/misc.tar.gz -O $DATA_PATH/downloads/misc.tar.gz --no-check-certificate
+
+nohup tar xfz /path/to/data/downloads/medline_extracts.tar.gz -C $DATA_PATH &
+nohup tar xfz /path/to/data/downloads/pubtator_extracts.tar.gz -C $DATA_PATH &
+nohup tar xfz /path/to/data/downloads/glygen.tar.gz -C $DATA_PATH &
+nohup tar xfz /path/to/data/downloads/gene_info.tar.gz -C $DATA_PATH &
+nohup tar xfz /path/to/data/downloads/misc.tar.gz -C $DATA_PATH &
 ```
 
 When this download/unpack is done, you should see the following file counts
 ```
-18013 files under /path/to/data/medline_extracts/
-16954 files under /path/to/data/pubtator_extracts/ 
-   48 files under /path/to/data/glygen/ 
-   10 files under /path/to/data/misc/
-    7 files under /path/to/data/gene_info/ 
+18013 files under $DATA_PATH/medline_extracts/
+16954 files under $DATA_PATH/pubtator_extracts/ 
+   48 files under $DATA_PATH/glygen/ 
+   10 files under $DATA_PATH/misc/
+    7 files under $DATA_PATH/gene_info/ 
 ```
 
 
 ## Step-2: making and integratig entities 
-The following commands will make various entity type files under "/path/to/data/entities/" and
-integrate them under "/path/to/data/integrated/". The second command should be executed after
-the first finishes. There are 9311 such interated entity files and one can parse the objects in 
-these files and find 5424 "match sites" as described in the paper.  
+The following commands will make various entity type files under "$DATA_PATH/entities/" and integrate them under "$DATA_PATH/integrated/". The second command should be executed after
+the first finishes. There are 9311 such interated entity files and one can parse the objects in these files and find 5424 "match sites" as described in the paper.  
 ```
 docker exec -t running_glycositeminer python make-entities.py 
 docker exec -t running_glycositeminer python integrate-entities.py 
 ```
 
 ## Step-3: creating labeled samples
-Out of the 5424 "match sites" contained in the integrated entity files under "/path/to/data/integrated/", 
-the command given below will generate labeled samples and save them in "/path/to/data/samples/samples_labeled.csv". 
+Out of the 5424 "match sites" contained in the integrated entity files under "$DATA_PATH/integrated/", 
+the command given below will generate labeled samples and save them in "$DATA_PATH/samples/samples_labeled.csv". 
 As reportd in the paper, this file will contain 872 positive and 354 negative samples. The criteria for labeling 
 these samples is described in the paper.
 ```
@@ -58,8 +69,8 @@ docker exec -t running_glycositeminer python make-labeled-samples.py
 
 
 ## Step-4: model validation
-This step will run 10-fold cross validation using the samples in "/path/to/data/samples/samples_labeled.csv", and the
-output files will be under "/path/to/data/validation/". The "performance.csv" file contains performance 
+This step will run 10-fold cross validation using the samples in "$DATA_PATH/samples/samples_labeled.csv", and the
+output files will be under "$DATA_PATH/validation/". The "performance.csv" file contains performance 
 output values for each run for both SVM and MLP classifiers, and the confusion matrix values are in the file
 "confusion_matrix.json". The are also two PNG files, "roc.png" and "cm.png", showing the ROC curves and confusion 
 matrix respectively.
@@ -70,8 +81,8 @@ docker exec -t running_glycositeminer python run-cross-validation.py
 
 ## Step-5: tuning the decision threshold for class prediction
 As described in the paper, these commands given below find optimal threshold on the class probabilities that is 
-suitable for our application. The output of the first command is saved in "/path/to/data/tuning/tuning.json", 
-and the second command generates a PNG file "/path/to/data/tuning/balanced_accuracy.png". You need to wait until 
+suitable for our application. The output of the first command is saved in "$DATA_PATH/tuning/tuning.json", 
+and the second command generates a PNG file "$DATA_PATH/tuning/balanced_accuracy.png". You need to wait until 
 the first command is finished.
 ```
 docker exec -t running_glycositeminer python tuning-step-one.py &
@@ -79,22 +90,22 @@ docker exec -t running_glycositeminer python tuning-step-two.py
 ```
 
 ## Step-6: building final models
-Using all the samples in "/path/to/data/samples/samples_labeled.csv", this step creates final modesl for both
-SVM and MLP classifiers and saves the models under "/path/to/data/models/".
+Using all the samples in "$DATA_PATH/samples/samples_labeled.csv", this step creates final modesl for both
+SVM and MLP classifiers and saves the models under "$DATA_PATH/models/".
 ```
 docker exec -t running_glycositeminer python build-models.py 
 ```
 
 
 ## Step-7: creating unlabeled samples
-This step makes unlabled samples corresponding to the 5424 "match sites" and saves them under "/path/to/data/samples/samples_unlabeled.csv"
+This step makes unlabled samples corresponding to the 5424 "match sites" and saves them under "$DATA_PATH/samples/samples_unlabeled.csv"
 ```
 docker exec -t running_glycositeminer python make-unlabeled-samples.py 
 ```
 
 ## Step-8: making predictions
-We can now apply the models to the unlabeled samples "/path/to/data/samples/samples_unlabeled.csv" to make predictions. The output of the command below
-is saved in "/path/to/data/predicted/predicted.csv". As reported in the paper, this file contains a total of 3268 predicted sites.
+We can now apply the models to the unlabeled samples "$DATA_PATH/samples/samples_unlabeled.csv" to make predictions. The output of the command below
+is saved in "$DATA_PATH/predicted/predicted.csv". As reported in the paper, this file contains a total of 3268 predicted sites.
 ```
 docker exec -t running_glycositeminer python make-predictions.py 
 ```
@@ -114,22 +125,22 @@ docker exec -t running_glycositeminer python download.py -s glygen &
 
 Once the above four processes finish, there will be downloaded files under the following folders
 ```
-/path/to/data/medline/
-/path/to/data/gene_info/
-/path/to/data/pubtator/
-/path/to/data/glygen/
+$DATA_PATH/medline/
+$DATA_PATH/gene_info/
+$DATA_PATH/pubtator/
+$DATA_PATH/glygen/
 ```
 
-Next, run the following command to parse the *.xml.gz downloaded files under /path/to/data/medline/
-and create medline extract files under /path/to/data/medline_extracts/. This is a parallelization wrapper script 
+Next, run the following command to parse the *.xml.gz downloaded files under $DATA_PATH/medline/
+and create medline extract files under $DATA_PATH/medline_extracts/. This is a parallelization wrapper script 
 for another script named "extract-medline-data.py" and will spawn 10 "extract-medline-data.py"
 ```
 docker exec -t running_glycositeminer python download.py -s wrap-extract-medline-data.py &
 ```
 
-When the 10 "extract-medline-data.py" are done and many files have been created under /path/to/data/medline_extracts/,
-run the following command to parse downloaded file under /path/to/data/pubtator/
-and create pubtator extract files under /path/to/data/pubtator_extracts/
+When the 10 "extract-medline-data.py" are done and many files have been created under $DATA_PATH/medline_extracts/,
+run the following command to parse downloaded file under $DATA_PATH/pubtator/
+and create pubtator extract files under $DATA_PATH/pubtator_extracts/
 ```
 docker exec -t running_glycositeminer python download.py -s wrap-extract-medline-data.py extract-pubtator-data.py &
 ```     
