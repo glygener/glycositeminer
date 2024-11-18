@@ -20,7 +20,17 @@ docker run -itd -v $DATA_PATH:/data --name running_glycositeminer glygen/glycosi
 
 
 ## Step-1: download data generated in this study
-Use the following commands to download and unpack data used by the pipeline
+Use the following commands to download and unpack data used by the pipeline. The tarball files downloaded in this step are:
+
+medline_extracts.tar.gz -- glycosylation terms containing sentences extracted from PubMed abstracts
+pubtator_extracts.tar.gz -- extracts from PubTator archive
+gene_info.tar.gz -- files used to map Gene IDs to Ensembl locus
+glygen.tar.gz -- reference dataset files downloaded from data.glygen.org
+misc.tar.gz -- misc files used by the pipeline
+
+If you wish to complile "medline_extracts.tar.gz" and "pubtator_extracts.tar.gz" starting from original PubMed and Putator downloads,
+instructions are given at the bottom of this README.
+
 ```
 mkdir -p $DATA_PATH/downloads
 
