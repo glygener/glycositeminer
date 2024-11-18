@@ -8,7 +8,7 @@ docker pull glygen/glycositeminer
 
 To start a container from the image, run the following command (make sure you change "/path/to/data" to the data path you want to use in your system)
 ```
-docker run -itd -v /path/to/data:/data --name running_glycositeminer glycositeminer
+docker run -itd -v /path/to/data:/data --name running_glycositeminer glygen/glycositeminer
 ```
 
 ## Step-1: download data generated in this study
