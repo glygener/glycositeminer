@@ -171,7 +171,7 @@ nohup docker exec -t running_glycositeminer python download-glygen.py &
 ```
 
 
-
+### Making PubMed and PubTator extracts
 Next, run the following command to parse the *.xml.gz downloaded files under $DATA_PATH/medline/
 and create medline extract files under $DATA_PATH/medline_extracts/. This is a parallelization wrapper script 
 for another script named "extract-medline-data.py" and will spawn 10 "extract-medline-data.py"
