@@ -20,26 +20,18 @@ docker run -itd -v $DATA_PATH:/data --name running_glycositeminer glygen/glycosi
 
 
 ### Step-1: download data generated in this study
-Use the following commands to download and unpack data used by the pipeline. The tarball files downloaded in this step are:
-
-- medline_extracts.tar.gz -- glycosylation terms containing sentences extracted from PubMed abstracts
-- pubtator_extracts.tar.gz -- extracts from PubTator archive
-- gene_info.tar.gz -- files used to map Gene IDs to Ensembl locus
-- glygen.tar.gz -- reference dataset files downloaded from data.glygen.org
-- misc.tar.gz -- misc files used by the pipeline
+Use the following command to download and unpack data used by the pipeline. 
 ```
 nohup docker exec -t running_glycositeminer python download-pipeline-data.py &
 ```
-
 When the process started by the above command is done, you should see the following file counts
 ```
-18013 files under $DATA_PATH/medline_extracts/
-16954 files under $DATA_PATH/pubtator_extracts/ 
-   43 files under $DATA_PATH/glygen/ 
-    9 files under $DATA_PATH/misc/
-    1 files under $DATA_PATH/gene_info/ 
+18013 files under $DATA_PATH/medline_extracts/ (glycosylation terms containing sentences extracted from PubMed abstracts)
+16954 files under $DATA_PATH/pubtator_extracts/ (extracts from PubTator archive)
+   43 files under $DATA_PATH/glygen/ (reference dataset files downloaded from data.glygen.org)
+    9 files under $DATA_PATH/misc/ (misc files used by the pipeline)
+    1 files under $DATA_PATH/gene_info/ (file used to map Gene IDs to Ensembl locus) 
 ```
-
 NOTE: if you wish to complile "medline_extracts.tar.gz" and "pubtator_extracts.tar.gz" starting from original PubMed and Putator downloads,
 instructions are given at the bottom of this README.
 
