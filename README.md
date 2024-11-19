@@ -27,10 +27,6 @@ Use the following commands to download and unpack data used by the pipeline. The
 - gene_info.tar.gz -- files used to map Gene IDs to Ensembl locus
 - glygen.tar.gz -- reference dataset files downloaded from data.glygen.org
 - misc.tar.gz -- misc files used by the pipeline
-
-If you wish to complile "medline_extracts.tar.gz" and "pubtator_extracts.tar.gz" starting from original PubMed and Putator downloads,
-instructions are given at the bottom of this README.
-
 ```
 nohup docker exec -t running_glycositeminer python download-pipeline-data.py &
 ```
@@ -43,6 +39,9 @@ When the process started by the above command is done, you should see the follow
     9 files under $DATA_PATH/misc/
     7 files under $DATA_PATH/gene_info/ 
 ```
+
+If you wish to complile "medline_extracts.tar.gz" and "pubtator_extracts.tar.gz" starting from original PubMed and Putator downloads,
+instructions are given at the bottom of this README.
 
 
 ### Step-2: making entities 
