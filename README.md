@@ -37,7 +37,7 @@ When the process started by the above command is done, you should see the follow
 16954 files under $DATA_PATH/pubtator_extracts/ 
    43 files under $DATA_PATH/glygen/ 
     9 files under $DATA_PATH/misc/
-    7 files under $DATA_PATH/gene_info/ 
+    1 files under $DATA_PATH/gene_info/ 
 ```
 
 NOTE: if you wish to complile "medline_extracts.tar.gz" and "pubtator_extracts.tar.gz" starting from original PubMed and Putator downloads,
