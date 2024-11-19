@@ -32,22 +32,10 @@ If you wish to complile "medline_extracts.tar.gz" and "pubtator_extracts.tar.gz"
 instructions are given at the bottom of this README.
 
 ```
-mkdir -p $DATA_PATH/downloads
-
-wget https://data.glygen.org/ftp/glycositeminer/tarballs/medline_extracts.tar.gz -O $DATA_PATH/downloads/medline_extracts.tar.gz --no-check-certificate
-wget https://data.glygen.org/ftp/glycositeminer/tarballs/pubtator_extracts.tar.gz -O $DATA_PATH/downloads/pubtator_extracts.tar.gz --no-check-certificate
-wget https://data.glygen.org/ftp/glycositeminer/tarballs/glygen.tar.gz -O $DATA_PATH/downloads/glygen.tar.gz --no-check-certificate
-wget https://data.glygen.org/ftp/glycositeminer/tarballs/gene_info.tar.gz -O $DATA_PATH/downloads/gene_info.tar.gz --no-check-certificate
-wget https://data.glygen.org/ftp/glycositeminer/tarballs/misc.tar.gz -O $DATA_PATH/downloads/misc.tar.gz --no-check-certificate
-
-nohup tar xfz $DATA_PATH/downloads/medline_extracts.tar.gz -C $DATA_PATH &
-nohup tar xfz $DATA_PATH/downloads/pubtator_extracts.tar.gz -C $DATA_PATH &
-nohup tar xfz $DATA_PATH/downloads/glygen.tar.gz -C $DATA_PATH &
-nohup tar xfz $DATA_PATH/downloads/gene_info.tar.gz -C $DATA_PATH &
-nohup tar xfz $DATA_PATH/downloads/misc.tar.gz -C $DATA_PATH &
+nohup docker exec -t running_glycositeminer python download-pipeline-data.py &
 ```
 
-When this download/unpack is done, you should see the following file counts
+When the process started by the above command is done, you should see the following file counts
 ```
 18013 files under $DATA_PATH/medline_extracts/
 16954 files under $DATA_PATH/pubtator_extracts/ 
