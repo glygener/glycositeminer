@@ -40,7 +40,7 @@ When the process started by the above command is done, you should see the follow
     7 files under $DATA_PATH/gene_info/ 
 ```
 
-If you wish to complile "medline_extracts.tar.gz" and "pubtator_extracts.tar.gz" starting from original PubMed and Putator downloads,
+NOTE: if you wish to complile "medline_extracts.tar.gz" and "pubtator_extracts.tar.gz" starting from original PubMed and Putator downloads,
 instructions are given at the bottom of this README.
 
 
