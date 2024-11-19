@@ -140,6 +140,18 @@ docker exec -t running_glycositeminer python make-predictions.py
 # DOWNLOADING ORIGINAL DATA
 To download and process original data, follow the instructions given below.
 
+### GlyGen downloads
+Run the following command and the downloaded files will be saved under "$DATA_PATH/glygen/".
+```
+nohup docker exec -t running_glycositeminer python download-glygen.py &
+```
+
+### Gene Info downloads
+Run the following command and the downloaded files will be saved under "$DATA_PATH/gene_info/".
+```
+nohup docker exec -t running_glycositeminer python download-gene-info.py &
+```
+
 ### PubMed downloads
 Run the following command to download PubMed baseline xml files for 2024 which have file indexes starting from 1 to 1219. To find out the 
 start and end values of the baseline files, visit https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/. The downloaded files will be 
@@ -158,19 +170,6 @@ Run the following command and the downloaded files will be saved under "$DATA_PA
 nohup docker exec -t running_glycositeminer python download-pubtator.py &
 ```
 
-### Gene Info downloads
-Run the following command and the downloaded files will be saved under "$DATA_PATH/gene_info/".
-```
-nohup docker exec -t running_glycositeminer python download-gene-info.py &
-```
-
-### GlyGen downloads
-Run the following command and the downloaded files will be saved under "$DATA_PATH/glygen/".
-```
-nohup docker exec -t running_glycositeminer python download-glygen.py &
-```
-
-
 ### Making PubMed and PubTator extracts
 Next, run the following command to parse the *.xml.gz downloaded files under $DATA_PATH/medline/
 and create medline extract files under $DATA_PATH/medline_extracts/. This is a parallelization wrapper script 
@@ -183,7 +182,7 @@ When the 10 "extract-medline-data.py" are done and many files have been created 
 run the following command to parse downloaded file under $DATA_PATH/pubtator/
 and create pubtator extract files under $DATA_PATH/pubtator_extracts/
 ```
-nohup docker exec -t running_glycositeminer python download.py -s wrap-extract-medline-data.py extract-pubtator-data.py &
+nohup docker exec -t running_glycositeminer python download.py -s extract-pubtator-data.py &
 ```     
 
 
