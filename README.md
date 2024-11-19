@@ -140,13 +140,15 @@ nohup docker exec -t running_glycositeminer python download-gene-info.py &
 ```
 
 ### PubMed downloads
-Run the following command to download PubMed baseline xml files for 2024 which have file indexes starting from 1 to 1219. To find out the 
-start and end values of the baseline files, visit https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/. The downloaded files will be 
-saved under "$DATA_PATH/medline/".
+Run the following command to download PubMed baseline xml files for 2024 which have file indexes starting from "1" to "1219". To find out the 
+start and end values of the baseline files, visit "https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/" and look at the first and last *.xml.gz files. 
+For year 24, since the first and last files are "pubmed24n0001.xml.gz" and "pubmed24n1219.xml.gz", the start and end file indexes are "1" and "1219". 
+The downloaded files will be saved under "$DATA_PATH/medline/".
 ```
 nohup docker exec -t running_glycositeminer python download-medline.py -c baseline -y 24 -s 1 -e 1219 &
 ```
-Similarly, the PubMed updatefiles for 2024 can be downloaded as
+Similarly, for the PubMed updatefiles, visit "https://ftp.ncbi.nlm.nih.gov/pubmed/updatefiles/" and you will find out first and last files 
+are "pubmed24n1220.xml.gz" and "pubmed24n1600.xml.gz".
 ```
 nohup docker exec -t running_glycositeminer python download-medline.py -c updatefiles -y 24 -s 1220 -e 1600 &
 ```
