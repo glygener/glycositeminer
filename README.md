@@ -36,36 +36,35 @@ NOTE: if you wish to complile "medline_extracts.tar.gz" and "pubtator_extracts.t
 instructions are given at the bottom of this README.
 
 
-### Step-2: making entities 
-The following commands will use downloaded files to make various entity type files under "$DATA_PATH/entities/".  
+### Step-2: making PubTator entities 
+The following commands will use downloaded PubTator files to make PubTator entity type files under "$DATA_PATH/pubtator_entities/".  
 ```
-nohup docker exec -t running_glycositeminer python make-entities.py &
+nohup docker exec -t running_glycositeminer python make-pubtator-entities.py &
 ```
 
 After number of entities should be as follows
 ```
-9311 site entities ($DATA_PATH/entities/site.*.json)
-9311 glyco entities ($DATA_PATH/entities/glyco.*.json)
-5917 gene entities ($DATA_PATH/entities/gene.*.json)
-4593 extragene entities ($DATA_PATH/entities/extragene.*.json)
-7260 species entities ($DATA_PATH/entities/species.*.json)
+xxxx gene entities ($DATA_PATH/pubtator_entities/gene.*.json)
+xxxx species entities ($DATA_PATH/pubtator_entities/species.*.json)
 ```
 
 
-### Step-3: integratig entities 
-The entities created should be integrated using the command given below. This step should create 9311 files under "$DATA_PATH/integrated/".
+### Step-3: mapping LLM entities step 1
+xxxx xxxxx xxxxx . This step should create xxx files under "$DATA_PATH/sites/".
 ```
-nohup docker exec -t running_glycositeminer python integrate-entities.py &
+nohup docker exec -t running_glycositeminer python map-llm-entities-step-1.py &
 ```
 
-
-### Step-4: creating labeled samples
-Out of the 5424 "match sites" contained in the integrated entity files under "$DATA_PATH/integrated/", 
-the command given below will generate labeled samples and save them in "$DATA_PATH/samples/samples_labeled.csv". 
-As reportd in the paper, this file will contain 872 positive and 354 negative samples. The criteria for labeling 
-these samples is described in the paper.
+### Step-x: mapping LLM entities step 2
+xxxx xxxxx xxxxx . This step should create xxx files under "$DATA_PATH/canons/".
 ```
-nohup docker exec -t running_glycositeminer python make-labeled-samples.py &
+nohup docker exec -t running_glycositeminer python map-llm-entities-step-2.py &
+```
+
+### Step-4: creating samples
+The command given below will generate sample or feature files and save them in "$DATA_PATH/samples/".
+```
+nohup docker exec -t running_glycositeminer python make-samples.py &
 ```
 
 
