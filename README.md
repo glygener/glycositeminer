@@ -55,28 +55,28 @@ This step should create 3947 files under "$DATA_PATH/sites/".
 nohup docker exec -t running_glycositeminer python map-llm-entities-step-1.py &
 ```
 
-### Step-x: mapping LLM entities step 2
+### Step-4: mapping LLM entities step 2
 This step should create 3350 files under "$DATA_PATH/canons/".
 ```
 nohup docker exec -t running_glycositeminer python map-llm-entities-step-2.py &
 ```
 
 
-### Step-4: creating match sites
+### Step-5: creating match sites
 The command given below will create sequence-specific match sites in "$DATA_PATH/match_sites/sites.csv".
 ```
 nohup docker exec -t running_glycositeminer python make-match-sites.py &
 ```
 
 
-### Step-5: creating samples
+### Step-6: creating samples
 The command given below will generate sample or feature files and save them in "$DATA_PATH/samples/".
 ```
 nohup docker exec -t running_glycositeminer python make-samples.py &
 ```
 
 
-### Step-6: model validation
+### Step-7: model validation
 This step will run 10-fold cross validation using the samples in "$DATA_PATH/samples/samples_labeled.csv", and the
 output files will be under "$DATA_PATH/validation/". The "performance.csv" file contains performance 
 output values for each run for both SVM and MLP classifiers, and the confusion matrix values are in the file
@@ -87,36 +87,30 @@ nohup docker exec -t running_glycositeminer python run-cross-validation.py &
 ```
 
 
-### Step-7: tuning the decision threshold for class prediction
+### Step-8: tuning the decision threshold for class prediction
 As described in the paper, these commands given below are used to find optimal threshold on the class probabilities that is 
 suitable for our application. The output of the first command is saved in "$DATA_PATH/tuning/tuning.json", 
 and the second command generates a PNG file "$DATA_PATH/tuning/balanced_accuracy.png". 
 ```
-nohup docker exec -t running_glycositeminer python tuning-step-one.py &
+nohup docker exec -t running_glycositeminer python tuning-step-1.py &
 ```
 
 You need to wait until the process started by the above command is finished.
 ```
-nohup docker exec -t running_glycositeminer python tuning-step-two.py &
+nohup docker exec -t running_glycositeminer python tuning-step-2.py &
 ```
 
 
-### Step-8: building final models
+### Step-9: building final models
 Using all the samples in "$DATA_PATH/samples/samples_labeled.csv", this step creates final modesl for both
 SVM and MLP classifiers and saves the models under "$DATA_PATH/models/".
 ```
-docker exec -t running_glycositeminer python build-models.py 
+docker exec -t running_glycositeminer python make-models.py 
 ```
 
-
-### Step-9: creating unlabeled samples
-This step makes unlabled samples corresponding to the 5424 "match sites" and saves them under "$DATA_PATH/samples/samples_unlabeled.csv"
-```
-docker exec -t running_glycositeminer python make-unlabeled-samples.py 
-```
 
 ### Step-10: making predictions
-We can now apply the models to the unlabeled samples "$DATA_PATH/samples/samples_unlabeled.csv" to make predictions. The output of the command below
+We can now apply the models to all samples "$DATA_PATH/samples/samples_all.csv" to make predictions. The output of the command below
 is saved in "$DATA_PATH/predicted/predicted.csv". As reported in the paper, this file contains a total of 3268 predicted sites.
 ```
 docker exec -t running_glycositeminer python make-predictions.py 
