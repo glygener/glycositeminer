@@ -44,19 +44,19 @@ nohup docker exec -t running_glycositeminer python make-pubtator-entities.py &
 
 After number of entities should be as follows
 ```
-xxxx gene entities ($DATA_PATH/pubtator_entities/gene.*.json)
-xxxx species entities ($DATA_PATH/pubtator_entities/species.*.json)
+3329 gene entities ($DATA_PATH/pubtator_entities/gene.*.json)
+3930 species entities ($DATA_PATH/pubtator_entities/species.*.json)
 ```
 
 
 ### Step-3: mapping LLM entities step 1
-xxxx xxxxx xxxxx . This step should create xxx files under "$DATA_PATH/sites/".
+This step should create 3947 files under "$DATA_PATH/sites/".
 ```
 nohup docker exec -t running_glycositeminer python map-llm-entities-step-1.py &
 ```
 
 ### Step-x: mapping LLM entities step 2
-xxxx xxxxx xxxxx . This step should create xxx files under "$DATA_PATH/canons/".
+This step should create 3350 files under "$DATA_PATH/canons/".
 ```
 nohup docker exec -t running_glycositeminer python map-llm-entities-step-2.py &
 ```
