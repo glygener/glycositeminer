@@ -3,7 +3,7 @@
 GlycoSiteMiner is a literature mining-based pipeline for extracting glycosylation sites from PubMed abstracts. The code for the pipeline is made available as a docker image that can be pulled using the following command.
 
 ```
-docker pull glygen/glycositeminer
+docker pull glygen/glycositeminer:1.0.0
 ```
 
 After pulling the image, create a data directory and set an env variable that will contain the path to your data directory. In the example shown below, 
@@ -15,7 +15,7 @@ export DATA_PATH=/data/glycositeminer/
 
 To start a container from the image, run the following command
 ```
-docker run -itd -v $DATA_PATH:/data --name running_glycositeminer glygen/glycositeminer
+docker run -itd -v $DATA_PATH:/data --name running_glycositeminer glygen/glycositeminer:1.0.0
 ```
 
 
