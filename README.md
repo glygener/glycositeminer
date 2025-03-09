@@ -64,14 +64,14 @@ nohup docker exec -t running_glycositeminer python map-llm-entities-step-2.py &
 
 
 ### Step-5: creating match sites
-The command given below will create sequence-specific match sites in "$DATA_PATH/match_sites/sites.csv".
+The command given below will create 4254 sequence-specific match sites in "$DATA_PATH/match_sites/sites.csv".
 ```
 nohup docker exec -t running_glycositeminer python make-match-sites.py &
 ```
 
 
 ### Step-6: creating samples
-The command given below will generate sample or feature files and save them in "$DATA_PATH/samples/".
+The command given below will generate two files --  "$DATA_PATH/samples/samples_all.csv" containing 4254 both labeled and unlabelled samples, and "$DATA_PATH/samples/samples_labeled.csv" containing 886 positive and 237 negative labeled samples.
 ```
 nohup docker exec -t running_glycositeminer python make-samples.py &
 ```
