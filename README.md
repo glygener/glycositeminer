@@ -26,14 +26,15 @@ nohup docker exec -t running_glycositeminer python download-pipeline-data.py &
 ```
 When the process started by the above command is done, you should see the following file counts
 ```
-18013 files under $DATA_PATH/medline_extracts/ (glycosylation terms containing sentences extracted from PubMed abstracts)
-16954 files under $DATA_PATH/pubtator_extracts/ (extracts from PubTator archive)
-   43 files under $DATA_PATH/glygen/ (reference dataset files downloaded from data.glygen.org)
-    9 files under $DATA_PATH/misc/ (misc files used by the pipeline)
-    1 files under $DATA_PATH/gene_info/ (file used to map Gene IDs to Ensembl locus) 
+ 9311 files under $DATA_PATH/medline_abstracts/pmid.*.txt
+16954 files under $DATA_PATH/pubtator_extracts/pmid.*.txt
+27933 files under $DATA_PATH/llm_entities/*/llm.*.json
+  124 files under $DATA_PATH/glygen/* 
+   20 files under $DATA_PATH/misc/*
+    1 file under $DATA_PATH/gene_info/*
+    1 file under $DATA_PATH/pdb/*
 ```
-NOTE: if you wish to complile "medline_extracts.tar.gz" and "pubtator_extracts.tar.gz" starting from original PubMed and Putator downloads,
-instructions are given at the bottom of this README.
+NOTE: if you wish to complile these dataset files from their original source, instructions are given at the bottom of this README.
 
 
 ### Step-2: making PubTator entities 
