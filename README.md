@@ -4,6 +4,7 @@ GlycoSiteMiner is a literature mining-based pipeline for extracting glycosylatio
 
 <code style="color : orangered">orange text</code>
 <font color="red">This is some text!</font>
+$\color{green}{test}$
 
 ```
 docker pull glygen/glycositeminer:1.0.0
