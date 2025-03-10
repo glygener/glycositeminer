@@ -80,13 +80,12 @@ nohup docker exec -t running_glycositeminer python make-samples.py &
 
 ### Step-7: model validation
 This step will run 10-fold cross validation using the samples in "$DATA_PATH/samples/samples_labeled.csv", and the
-output files will be under "$DATA_PATH/validation/". The "performance.csv" file contains performance 
-output values for each run for both SVM and MLP classifiers, and the confusion matrix values are in the file
-"confusion_matrix.json". The are also two PNG files, "roc.png" and "cm.png", showing the ROC curves and confusion 
-matrix respectively.
+output files will be under "$DATA_PATH/validation/". The file "recall_precision.json" recall and precision values for both SVM and MLP classifiers, and the confusion matrix values are in the file "confusion_matrix.json". The are also two PNG files, "roc.png" and "cm.png", showing the ROC curves and confusion matrix respectively.
 ```
 nohup docker exec -t running_glycositeminer python run-cross-validation.py &
 ```
+
+
 
 
 ### Step-8: tuning the decision threshold for class prediction
