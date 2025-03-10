@@ -2,7 +2,6 @@
 
 GlycoSiteMiner is a literature mining-based pipeline for extracting glycosylation sites from PubMed abstracts. The code for the pipeline is made available as a docker image that can be pulled using the following command.
 
-$\color{red}{test}$
 
 ```
 docker pull glygen/glycositeminer:1.0.0
@@ -53,27 +52,27 @@ After number of entities should be as follows
 
 
 ### Step-3: mapping LLM entities step 1
-This step should create 3947 files under "$DATA_PATH/sites/".
+This step should create $\color{red}{3947}$ files under "$DATA_PATH/sites/".
 ```
 nohup docker exec -t running_glycositeminer python map-llm-entities-step-1.py &
 ```
 
 ### Step-4: mapping LLM entities step 2
-This step should create 3350 files under "$DATA_PATH/canons/".
+This step should create $\color{red}{3350}$ files under "$DATA_PATH/canons/".
 ```
 nohup docker exec -t running_glycositeminer python map-llm-entities-step-2.py &
 ```
 
 
 ### Step-5: creating match sites
-The command given below will create 4254 sequence-specific match sites in "$DATA_PATH/match_sites/sites.csv".
+The command given below will create $\color{red}{4254}$ sequence-specific match sites in "$DATA_PATH/match_sites/sites.csv".
 ```
 nohup docker exec -t running_glycositeminer python make-match-sites.py &
 ```
 
 
 ### Step-6: creating samples
-The command given below will generate two files --  "$DATA_PATH/samples/samples_all.csv" containing 4254 both labeled and unlabelled samples, and "$DATA_PATH/samples/samples_labeled.csv" containing 886 positive and 237 negative labeled samples.
+The command given below will generate two files --  "$DATA_PATH/samples/samples_all.csv" containing $\color{red}{4254}$ both labeled and unlabelled samples, and "$DATA_PATH/samples/samples_labeled.csv" containing $\color{red}{886}$ positive and $\color{red}{238}$ negative labeled samples.
 ```
 nohup docker exec -t running_glycositeminer python make-samples.py &
 ```
