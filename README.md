@@ -92,7 +92,10 @@ nohup docker exec -t running_glycositeminer python run-cross-validation.py &
 ### Step-8: tuning the decision threshold for class prediction
 As described in the paper, these commands given below are used to find optimal threshold on the class probabilities that is 
 suitable for our application. The output of the first command is saved in "$DATA_PATH/tuning/tuning.json", 
-and the second command generates a PNG file "$DATA_PATH/tuning/balanced_accuracy.png" and cutoffs file "$DATA_PATH/tuning/cutoff.json" which contains cutoff values to be used when making predictions. 
+and the second command generates a PNG file "$DATA_PATH/tuning/balanced_accuracy.png" and cutoffs file "$DATA_PATH/tuning/cutoff.json" which contains cutoff values to be used when making predictions.
+
+The reported cutoff values in the manuscript are $\color{red}{0.9471}$ and $\color{red}{0.9669}$ for SVM and MLP respectively. The cutoff values you get (in "$DATA_PATH/tuning/cutoff.json") can be slightly different since the tunning interations involve random reshuffling of samples. 
+
 ```
 nohup docker exec -t running_glycositeminer python tuning-step-1.py &
 ```
@@ -113,7 +116,7 @@ docker exec -t running_glycositeminer python make-models.py
 
 ### Step-10: making predictions
 We can now apply the models to all samples "$DATA_PATH/samples/samples_all.csv" to make predictions. The output of the command below
-is saved in "$DATA_PATH/predicted/predicted.csv". As reported in the paper, this file contains a total of $\color{red}{3118}$ predicted sites. This script also outputs stat files "$DATA_PATH/predicted/stats.txt" giving the number of sites predicted for each species.
+is saved in "$DATA_PATH/predicted/predicted.csv". As reported in the paper, this file contains a total of $\color{red}{3118}$ predicted sites. This script also outputs stat files "$DATA_PATH/predicted/stats.txt" giving the number of sites predicted for each species. Since your cutoff values (in "$DATA_PATH/tuning/cutoff.json") can be slighly different from what has been reported in the manuscript, your numbers in "$DATA_PATH/predicted/stats.txt" can be slightly different from what has been reported in the manuscript.
 ```
 docker exec -t running_glycositeminer python make-predictions.py 
 ```
