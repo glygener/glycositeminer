@@ -65,14 +65,14 @@ nohup docker exec -t running_glycositeminer python map-llm-entities-step-2.py &
 
 
 ### Step-5: creating match sites
-The command given below will create $\color{red}{4254}$ sequence-specific match sites in "$DATA_PATH/match_sites/sites.csv".
+The command given below will create $\color{red}{4261}$ sequence-specific match sites in "$DATA_PATH/match_sites/sites.csv".
 ```
 nohup docker exec -t running_glycositeminer python make-match-sites.py &
 ```
 
 
 ### Step-6: creating samples
-The command given below will generate two files --  "$DATA_PATH/samples/samples_all.csv" containing $\color{red}{4254}$ both labeled and unlabelled samples, and "$DATA_PATH/samples/samples_labeled.csv" containing $\color{red}{886}$ positive and $\color{red}{238}$ negative labeled samples.
+The command given below will generate two files --  "$DATA_PATH/samples/samples_all.csv" containing $\color{red}{4261}$ both labeled and unlabelled samples, and "$DATA_PATH/samples/samples_labeled.csv" containing $\color{red}{886}$ positive and $\color{red}{238}$ negative labeled samples.
 ```
 nohup docker exec -t running_glycositeminer python make-samples.py &
 ```
@@ -113,7 +113,7 @@ docker exec -t running_glycositeminer python make-models.py
 
 ### Step-10: making predictions
 We can now apply the models to all samples "$DATA_PATH/samples/samples_all.csv" to make predictions. The output of the command below
-is saved in "$DATA_PATH/predicted/predicted.csv". As reported in the paper, this file contains a total of 3393 predicted sites. This script also outputs stat files "$DATA_PATH/predicted/stats_svm.txt" and "$DATA_PATH/predicted/stats_mlp.txt" giving the number of sites predicted for each species.
+is saved in "$DATA_PATH/predicted/predicted.csv". As reported in the paper, this file contains a total of $\color{red}{3118}$ predicted sites. This script also outputs stat files "$DATA_PATH/predicted/stats.txt" giving the number of sites predicted for each species.
 ```
 docker exec -t running_glycositeminer python make-predictions.py 
 ```
