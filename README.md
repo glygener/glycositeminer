@@ -39,20 +39,30 @@ NOTE: if you wish to complile these dataset files from their original source, in
 
 
 
-### Step-2: making sites
+### Step-2: making entities
 ```
 nohup docker exec -t running_glycositeminer python make-entities.py &
 ```
 
+When the process started by the above command is done, you should see the following file counts
+```
+ 9311 files under $DATA_PATH/entities/site.* |wc
+ 9311 files under $DATA_PATH/entities/glyco.* |wc
+ 5917 files under $DATA_PATH/entities/gene.* |wc
+ 4593 files under $DATA_PATH/entities/extragene.* |wc
+ 7260 files under $DATA_PATH/entities/species.* |wc
+```
+
 
 ### Step-3: integrating entities
+The command given below will integrate $\color{red}{3723}$ sequence-specific sites in "$DATA_PATH/integrated/".
 ```
 nohup docker exec -t running_glycositeminer python integrate-entities.py &
 ```
 
 
 ### Step-4: creating match sites
-The command given below will create $\color{red}{4261}$ sequence-specific match sites in "$DATA_PATH/match_sites/sites.csv".
+The command given below will create $\color{red}{3676}$ sequence-specific match sites in "$DATA_PATH/match_sites/match-sites.csv".
 ```
 nohup docker exec -t running_glycositeminer python make-match-sites.py &
 ```
