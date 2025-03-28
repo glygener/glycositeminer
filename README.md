@@ -90,7 +90,9 @@ As described in the paper, these commands given below are used to find optimal t
 suitable for our application. The output of the first command is saved in "$DATA_PATH/tuning/tuning.json", 
 and the second command generates a PNG file "$DATA_PATH/tuning/balanced_accuracy.png" and cutoffs file "$DATA_PATH/tuning/cutoff.json" which contains cutoff values to be used when making predictions.
 
-The reported cutoff values in the manuscript are $\color{red}{0.9471}$ and $\color{red}{0.9669}$ for SVM and MLP respectively. The cutoff values you get (in "$DATA_PATH/tuning/cutoff.json") can be slightly different since the tunning interations involve random reshuffling of samples. 
+The reported cutoff values in the manuscript are $\color{red}{0.7260}$ and $\color{red}{0.8702}$ for SVM and MLP respectively. The cutoff values you get (in "$DATA_PATH/tuning/cutoff.json") can be slightly different since the tunning interations involve random reshuffling of samples. 
+
+
 
 ```
 nohup docker exec -t running_glycositeminer python tuning-step-1.py &
