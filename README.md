@@ -114,7 +114,7 @@ docker exec -t running_glycositeminer python make-models.py
 
 ### Step-9: making predictions
 We can now apply the models to all samples "$DATA_PATH/samples/samples_all.csv" to make predictions. The output of the command below
-is saved in "$DATA_PATH/predicted/predicted.csv". As reported in the paper, this file contains a total of $\color{red}{3118}$ predicted sites. This script also outputs stat files "$DATA_PATH/predicted/stats.txt" giving the number of sites predicted for each species. Since your cutoff values (in "$DATA_PATH/tuning/cutoff.json") can be slighly different from what has been reported in the manuscript, your numbers in "$DATA_PATH/predicted/stats.txt" can be slightly different from what has been reported in the manuscript.
+is saved in "$DATA_PATH/predicted/predicted.csv". This script also outputs stat files "$DATA_PATH/predicted/stats.txt" giving the number of sites predicted for each species. Since your cutoff values (in "$DATA_PATH/tuning/cutoff.json") can be slighly different from what has been reported in the manuscript, your numbers in "$DATA_PATH/predicted/stats.txt" can be slightly different from what has been reported in the manuscript.
 ```
 docker exec -t running_glycositeminer python make-predictions.py 
 ```
