@@ -39,63 +39,33 @@ NOTE: if you wish to complile these dataset files from their original source, in
 
 
 
-
-
+### Step-2: making sites
 ````
-make-entities.py
-integrate-entities.py
-make-match-sites.py
-make-samples.py
-run-cross-validation.py
-make-models.py
-tuning-step-1.py
-tuning-step-2.py
-make-predictions.py
+nohup docker exec -t running_glycositeminer python make-entities.py &
 ```
 
 
-
-### Step-2: making PubTator entities 
-The following commands will use downloaded PubTator files to make PubTator entity type files under "$DATA_PATH/pubtator_entities/".  
-```
-nohup docker exec -t running_glycositeminer python make-pubtator-entities.py &
-```
-
-After number of entities should be as follows
-```
-3329 gene entities ($DATA_PATH/pubtator_entities/gene.*.json)
-3930 species entities ($DATA_PATH/pubtator_entities/species.*.json)
+### Step-3: integrating entities
+````
+nohup docker exec -t running_glycositeminer python integrate-entities.py &
 ```
 
 
-### Step-3: mapping LLM entities step 1
-This step should create $\color{red}{3947}$ files under "$DATA_PATH/sites/".
-```
-nohup docker exec -t running_glycositeminer python map-llm-entities-step-1.py &
-```
-
-### Step-4: mapping LLM entities step 2
-This step should create $\color{red}{3350}$ files under "$DATA_PATH/canons/".
-```
-nohup docker exec -t running_glycositeminer python map-llm-entities-step-2.py &
-```
-
-
-### Step-5: creating match sites
+### Step-4: creating match sites
 The command given below will create $\color{red}{4261}$ sequence-specific match sites in "$DATA_PATH/match_sites/sites.csv".
 ```
 nohup docker exec -t running_glycositeminer python make-match-sites.py &
 ```
 
 
-### Step-6: creating samples
+### Step-5: creating samples
 The command given below will generate two files --  "$DATA_PATH/samples/samples_all.csv" containing $\color{red}{4261}$ both labeled and unlabelled samples, and "$DATA_PATH/samples/samples_labeled.csv" containing $\color{red}{886}$ positive and $\color{red}{238}$ negative labeled samples.
 ```
 nohup docker exec -t running_glycositeminer python make-samples.py &
 ```
 
 
-### Step-7: model validation
+### Step-6: model validation
 This step will run 10-fold cross validation using the samples in "$DATA_PATH/samples/samples_labeled.csv", and the
 output files will be under "$DATA_PATH/validation/". The file "recall_precision.json" recall and precision values for both SVM and MLP classifiers, and the confusion matrix values are in the file "confusion_matrix.json". The are also two PNG files, "roc.png" and "cm.png", showing the ROC curves and confusion matrix respectively.
 ```
@@ -105,7 +75,7 @@ nohup docker exec -t running_glycositeminer python run-cross-validation.py &
 
 
 
-### Step-8: tuning the decision threshold for class prediction
+### Step-7: tuning the decision threshold for class prediction
 As described in the paper, these commands given below are used to find optimal threshold on the class probabilities that is 
 suitable for our application. The output of the first command is saved in "$DATA_PATH/tuning/tuning.json", 
 and the second command generates a PNG file "$DATA_PATH/tuning/balanced_accuracy.png" and cutoffs file "$DATA_PATH/tuning/cutoff.json" which contains cutoff values to be used when making predictions.
@@ -122,7 +92,7 @@ nohup docker exec -t running_glycositeminer python tuning-step-2.py &
 ```
 
 
-### Step-9: building final models
+### Step-8: building final models
 Using all the samples in "$DATA_PATH/samples/samples_labeled.csv", this step creates final modesl for both
 SVM and MLP classifiers and saves the models under "$DATA_PATH/models/".
 ```
@@ -130,7 +100,7 @@ docker exec -t running_glycositeminer python make-models.py
 ```
 
 
-### Step-10: making predictions
+### Step-9: making predictions
 We can now apply the models to all samples "$DATA_PATH/samples/samples_all.csv" to make predictions. The output of the command below
 is saved in "$DATA_PATH/predicted/predicted.csv". As reported in the paper, this file contains a total of $\color{red}{3118}$ predicted sites. This script also outputs stat files "$DATA_PATH/predicted/stats.txt" giving the number of sites predicted for each species. Since your cutoff values (in "$DATA_PATH/tuning/cutoff.json") can be slighly different from what has been reported in the manuscript, your numbers in "$DATA_PATH/predicted/stats.txt" can be slightly different from what has been reported in the manuscript.
 ```
