@@ -40,13 +40,13 @@ NOTE: if you wish to complile these dataset files from their original source, in
 
 
 ### Step-2: making sites
-````
+```
 nohup docker exec -t running_glycositeminer python make-entities.py &
 ```
 
 
 ### Step-3: integrating entities
-````
+```
 nohup docker exec -t running_glycositeminer python integrate-entities.py &
 ```
 
