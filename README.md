@@ -38,6 +38,23 @@ When the process started by the above command is done, you should see the follow
 NOTE: if you wish to complile these dataset files from their original source, instructions are given at the bottom of this README.
 
 
+
+
+
+````
+make-entities.py
+integrate-entities.py
+make-match-sites.py
+make-samples.py
+run-cross-validation.py
+make-models.py
+tuning-step-1.py
+tuning-step-2.py
+make-predictions.py
+```
+
+
+
 ### Step-2: making PubTator entities 
 The following commands will use downloaded PubTator files to make PubTator entity type files under "$DATA_PATH/pubtator_entities/".  
 ```
