@@ -69,7 +69,7 @@ nohup docker exec -t running_glycositeminer python make-match-sites.py &
 
 
 ### Step-5: creating samples
-The command given below will generate two files --  "$DATA_PATH/samples/samples_all.csv" containing $\color{red}{4261}$ both labeled and unlabelled samples, and "$DATA_PATH/samples/samples_labeled.csv" containing $\color{red}{886}$ positive and $\color{red}{238}$ negative labeled samples.
+The command given below will generate two files --  "$DATA_PATH/samples/samples_all.csv" containing $\color{red}{3676}$ both labeled and unlabelled samples, and "$DATA_PATH/samples/samples_labeled.csv" containing $\color{red}{783}$ positive and $\color{red}{363}$ negative labeled samples.
 ```
 nohup docker exec -t running_glycositeminer python make-samples.py &
 ```
