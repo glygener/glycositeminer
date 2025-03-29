@@ -27,13 +27,14 @@ nohup docker exec -t running_glycositeminer python download-pipeline-data.py &
 ```
 When the process started by the above command is done, you should see the following file counts
 ```
- 9311 files under $DATA_PATH/medline_abstracts/pmid.*.txt
-16954 files under $DATA_PATH/pubtator_extracts/pmid.*.txt
-27933 files under $DATA_PATH/llm_entities/*/llm.*.json
-  124 files under $DATA_PATH/glygen/* 
-   20 files under $DATA_PATH/misc/*
-    1 file under $DATA_PATH/gene_info/*
-    1 file under $DATA_PATH/pdb/*
+27,933 files under $DATA_PATH/llm_entities/*/llm.*.json
+18,087 files under $DATA_PATH/medline_extracts/pmid.*.txt
+16,954 files under $DATA_PATH/pubtator_extracts/pmid.*.txt
+ 9,311 files under $DATA_PATH/medline_abstracts/pmid.*.txt
+ 1,245 files under $DATA_PATH/confirmation/*.json
+    89 files under $DATA_PATH/glygen/* 
+    13 files under $DATA_PATH/misc/*
+     1 file under $DATA_PATH/gene_info/*
 ```
 NOTE: if you wish to complile these dataset files from their original source, instructions are given at the bottom of this README.
 
@@ -46,30 +47,30 @@ nohup docker exec -t running_glycositeminer python make-entities.py &
 
 When the process started by the above command is done, you should see the following file counts
 ```
- 9311 files under $DATA_PATH/entities/site.* |wc
- 9311 files under $DATA_PATH/entities/glyco.* |wc
- 5917 files under $DATA_PATH/entities/gene.* |wc
- 4593 files under $DATA_PATH/entities/extragene.* |wc
- 7260 files under $DATA_PATH/entities/species.* |wc
+ 9,311 files under $DATA_PATH/entities/site.* |wc
+ 9,311 files under $DATA_PATH/entities/glyco.* |wc
+ 5,917 files under $DATA_PATH/entities/gene.* |wc
+ 4,593 files under $DATA_PATH/entities/extragene.* |wc
+ 7,260 files under $DATA_PATH/entities/species.* |wc
 ```
 
 
 ### Step-3: integrating entities
-The command given below will integrate $\color{red}{3723}$ sequence-specific sites in "$DATA_PATH/integrated/".
+The command given below will integrate $\color{red}{3,723}$ sequence-specific sites in "$DATA_PATH/integrated/".
 ```
 nohup docker exec -t running_glycositeminer python integrate-entities.py &
 ```
 
 
 ### Step-4: creating match sites
-The command given below will create $\color{red}{3676}$ sequence-specific match sites in "$DATA_PATH/match_sites/match-sites.csv".
+The command given below will create $\color{red}{3,676}$ sequence-specific match sites in "$DATA_PATH/match_sites/match-sites.csv".
 ```
 nohup docker exec -t running_glycositeminer python make-match-sites.py &
 ```
 
 
 ### Step-5: creating samples
-The command given below will generate two files --  "$DATA_PATH/samples/samples_all.csv" containing $\color{red}{3676}$ both labeled and unlabelled samples, and "$DATA_PATH/samples/samples_labeled.csv" containing $\color{red}{783}$ positive and $\color{red}{363}$ negative labeled samples.
+The command given below will generate two files --  "$DATA_PATH/samples/samples_all.csv" containing $\color{red}{3,676}$ both labeled and unlabelled samples, and "$DATA_PATH/samples/samples_labeled.csv" containing $\color{red}{783}$ positive and $\color{red}{363}$ negative labeled samples.
 ```
 nohup docker exec -t running_glycositeminer python make-samples.py &
 ```
@@ -118,6 +119,16 @@ is saved in "$DATA_PATH/predicted/predicted.csv". This script also outputs stat 
 ```
 docker exec -t running_glycositeminer python make-predictions.py 
 ```
+
+The following commands give the total number of sites which pass the LLM-based verification ($\color{red}{1,745}$), and those that are new to GlyGen ($\color{red}{1,118}$).
+```
+$ cat $DATA_PATH/predicted/predicted.csv   | grep llm_yes |wc
+   1745    1745  157875
+
+$ cat $DATA_PATH/predicted/predicted.csv   | grep llm_yes |grep in_glygen_no |wc
+   1118    1118  100784
+```
+
 
 
 # DOWNLOADING ORIGINAL DATA
