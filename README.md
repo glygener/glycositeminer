@@ -25,6 +25,13 @@ Use the following command to download and unpack data used by the pipeline.
 ```
 nohup docker exec -t running_glycositeminer python download-pipeline-data.py &
 ```
+If the above command fails to download the files, please run the "download-pipeline-data.py" scsript
+given in the repo from the host as
+```
+$ export DATA_PATH=/data/glycositeminer/
+$ nohup python3 download-pipeline-data.py &
+```
+
 When the process started by the above command is done, you should see the following file counts
 ```
 27,933 files under $DATA_PATH/llm_entities/*/llm.*.json
