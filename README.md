@@ -70,7 +70,7 @@ nohup docker exec -t running_glycositeminer python integrate-entities.py &
 
 
 ### Step-4: creating match sites
-The command given below will create $\color{red}{3,676}$ sequence-specific match sites in "$DATA_PATH/match_sites/match-sites.csv".
+The command given below will create $\color{red}{3,676}$ sequence-specific match sites in "$DATA_PATH/match_sites/match_sites.csv".
 ```
 nohup docker exec -t running_glycositeminer python make-match-sites.py &
 ```
