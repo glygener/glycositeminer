@@ -35,7 +35,7 @@ $ nohup python3 download-pipeline-data.py &
 When the process started by the above command is done, you should see the following file counts
 ```
 27,933 files under $DATA_PATH/llm_entities/*/llm.*.json
-18,087 files under $DATA_PATH/medline_extracts/pmid.*.txt
+18,078 files under $DATA_PATH/medline_extracts/pmid.*.json
 16,954 files under $DATA_PATH/pubtator_extracts/pmid.*.txt
  9,311 files under $DATA_PATH/medline_abstracts/pmid.*.txt
  1,245 files under $DATA_PATH/confirmation/*.json
